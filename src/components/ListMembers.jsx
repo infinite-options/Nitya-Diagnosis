@@ -1,7 +1,13 @@
 import React from "react";
 
-export default function ListMembers(list) {
+// WHY DO I GET THE DATA IN cast.cast instead of cast?
+
+// WITHOUT THE {} YOU HAVE TO USED cast.cast
+// export default function ListMembers(cast, onChoice) {
+export default function ListMembers({ cast, onChoice }) {
   console.log("In List Members");
+  console.log(cast);
+  // console.log(cast.cast);
   return (
     <div
       style={{
@@ -11,23 +17,24 @@ export default function ListMembers(list) {
         marginBottom: "1rem",
       }}
     >
-      {list.map((member) => (
+      {console.log("inside ListMember")}
+      {cast.map((member) => (
         // <a onClick={() => { onChoice(member) }} key={member.id} data-tooltip={member.name}>
         //   <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
         // </a>
-        <a
-          //   onClick={() => {
-          //     onChoice(member);
-          //   }}
-          key={member.symptom_uid}
+        <div
+          onClick={() => {
+            onChoice(member);
+          }}
+          key={member.disease_uid}
         >
           <p>
-            {member.symptom_uid}
+            {member.disease_uid}
             <br></br>
-            {member.symptom_name}
+            {member.disease_name}
           </p>
-          {console.log("inside ListCast: ", member)}
-        </a>
+          {/* {console.log("inside ListCast: ", member)} */}
+        </div>
       ))}
     </div>
   );

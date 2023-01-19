@@ -13,6 +13,9 @@ function App() {
   // console.log("Initial Symptoms: ", symptomList); //Why don't these load at the same time?
   // console.log("Initial Diseases: ", diseaseList);
   const [clicked, setClicked] = useState(false);
+  const [symptomClicked, setSymptomClicked] = useState(false);
+  const [diseaseClicked, setDiseaseClicked] = useState(false);
+  console.log("Button Status: Symptom: ", symptomClicked, "Disease: ", diseaseClicked);
 
   // FUNCTIONS -------------------------------------
 
@@ -54,6 +57,7 @@ function App() {
   }
 
   // OUTPUT
+  // Could I do the onClick with a ternary?
   return (
     <div className="NityaSite">
       <table id="myTable">
@@ -70,15 +74,39 @@ function App() {
           </tr>
           <tr align="center" border="1" bgcolor="green">
             <td>
-              <button onClick={() => setClicked(!clicked)}>See Symptoms</button>
+              <button
+                onClick={() => {
+                  setSymptomClicked(!clicked);
+                  setDiseaseClicked(false);
+                }}
+              >
+                See Symptoms
+              </button>
             </td>
             <td>
-              <button onClick={() => setClicked(!clicked)}>See Diseases</button>
+              <button
+                onClick={() => {
+                  setDiseaseClicked(!clicked);
+                  setSymptomClicked(false);
+                }}
+              >
+                See Diseases
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      {clicked && <CheckFunction />}
+      {symptomClicked && <CheckFunction />}
+      {console.log("Disease List to Pass: ", diseaseList)}
+      {diseaseClicked && (
+        <ListMembers
+          cast={diseaseList}
+          onChoice={(info) => {
+            console.log("This is what was chosen: ", info);
+            // setMemberInfo(info);
+          }}
+        />
+      )}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
       <br></br>
