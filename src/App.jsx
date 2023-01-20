@@ -3,6 +3,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import ListMembers from "./components/ListMembers";
 import CheckFunction from "./components/CheckFunction";
+import SelectionList from "./components/SelectionList";
+
+const otherList = [];
 
 function App() {
   // VARIABLES
@@ -16,6 +19,9 @@ function App() {
   const [symptomClicked, setSymptomClicked] = useState(false);
   const [diseaseClicked, setDiseaseClicked] = useState(false);
   console.log("Button Status: Symptom: ", symptomClicked, "Disease: ", diseaseClicked);
+
+  let [selectionList, setSelectionList] = useState(otherList);
+  let [selection, setSelection] = useState(null);
 
   // FUNCTIONS -------------------------------------
 
@@ -56,6 +62,19 @@ function App() {
     // <ListMembers list={symptomList} />;
   }
 
+  function handleAdd(selection, list) {
+    console.log("In Handle Add selection", selection);
+    console.log("In Handle Add selection.disease_name", selection.disease_name);
+    console.log("Passed in List", list);
+
+    const newList = list.concat({ selection });
+
+    console.log("New List", newList[0]);
+
+    setSelectionList(newList);
+    setSelection(null);
+  }
+
   // OUTPUT
   // Could I do the onClick with a ternary?
   return (
@@ -69,7 +88,18 @@ function App() {
           </tr>
           <tr align="center" border="1" bgcolor="green">
             <td colSpan="2">
-              <button onClick={testFunctionCall}>See Symptoms1</button>
+              {/* These seem to be equivalent */}
+              {/* <button onClick={testFunctionCall}>See Symptoms1</button> */}
+              {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
+              <button
+                onClick={() => {
+                  testFunctionCall();
+                  setSymptomClicked(false);
+                  setDiseaseClicked(false);
+                }}
+              >
+                See Symptoms1
+              </button>
             </td>
           </tr>
           <tr align="center" border="1" bgcolor="green">
@@ -96,17 +126,34 @@ function App() {
           </tr>
         </tbody>
       </table>
+
+      {/* Symptom Clicked */}
       {symptomClicked && <CheckFunction />}
+
+      {/* Disease Clicked */}
       {console.log("Disease List to Pass: ", diseaseList)}
+      {console.log("Currently Selected: ", selectionList)}
       {diseaseClicked && (
         <ListMembers
           cast={diseaseList}
-          onChoice={(info) => {
-            console.log("This is what was chosen: ", info);
-            // setMemberInfo(info);
+          onChoice={(selection) => {
+            console.log("This is what was chosen: ", selection);
+            setSelection(selection);
           }}
+          list={selectionList}
         />
       )}
+
+      {/* Confirm that what was selected can be accessed */}
+      {console.log("Newly Selected: ", selection)}
+      {console.log("Current List: ", selectionList)}
+
+      {/* Pass selection into SelectionList and add it to Selection List */}
+      {/* <SelectionList currentList={selectionList} newSelection={selection} /> */}
+
+      {/* {selection && handleAdd(selection.disease_name, selectionList)} */}
+      {selection && handleAdd(selection, selectionList)}
+      {console.log("Updated List: ", selectionList)}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
       <br></br>

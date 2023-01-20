@@ -4,10 +4,11 @@ import React from "react";
 
 // WITHOUT THE {} YOU HAVE TO USED cast.cast
 // export default function ListMembers(cast, onChoice) {
-export default function ListMembers({ cast, onChoice }) {
+export default function ListMembers({ cast, onChoice, list }) {
   console.log("In List Members");
-  console.log(cast);
+  console.log("Cast in List Members: ", cast);
   // console.log(cast.cast);
+  console.log("Selected Members: ", list);
   return (
     <div
       style={{
@@ -23,6 +24,7 @@ export default function ListMembers({ cast, onChoice }) {
         //   <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
         // </a>
         <div
+          style={{ color: "red" }}
           onClick={() => {
             onChoice(member);
           }}
@@ -36,44 +38,19 @@ export default function ListMembers({ cast, onChoice }) {
           {/* {console.log("inside ListCast: ", member)} */}
         </div>
       ))}
+      <div>"Before List"</div>
+      {list.map((listMember) => (
+        <div style={{ color: "blue" }}>
+          <p>Inside List {listMember[0]}</p>
+          <p>
+            {listMember.selection.disease_uid}
+            <br></br>
+            {listMember.selection.disease_name}
+          </p>
+          {/* {console.log("inside ListCast: ", member)} */}
+        </div>
+      ))}
+      <div>"After List"</div>
     </div>
   );
 }
-
-// export default ({ list, onChoice }) => {
-//   console.log("In ListCast");
-//   console.log(cast);
-//   console.log("After cast");
-//   console.log(onChoice);
-//   console.log("After onChoice");
-
-//   return (
-//     <div
-//       style={{
-//         display: "grid",
-//         gridTemplateColumns: `repeat(auto-fit, minmax(90px, 1fr))`,
-//         gap: `1rem`,
-//         marginBottom: "1rem",
-//       }}
-//     >
-//       {cast.map((member) => (
-//         // <a onClick={() => { onChoice(member) }} key={member.id} data-tooltip={member.name}>
-//         //   <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
-//         // </a>
-//         <a
-//           onClick={() => {
-//             onChoice(member);
-//           }}
-//           key={member.symptom_uid}
-//         >
-//           <p>
-//             {member.symptom_uid}
-//             <br></br>
-//             {member.symptom_name}
-//           </p>
-//           {console.log("inside ListCast: ", member)}
-//         </a>
-//       ))}
-//     </div>
-//   );
-// };
