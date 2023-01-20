@@ -19,6 +19,10 @@ export default function ListMembers({ cast, onChoice, list }) {
       }}
     >
       {console.log("inside ListMember")}
+
+      {console.log("inside List", list)}
+      {console.log("inside Cast", cast)}
+
       {cast.map((member) => (
         // <a onClick={() => { onChoice(member) }} key={member.id} data-tooltip={member.name}>
         //   <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
@@ -30,7 +34,10 @@ export default function ListMembers({ cast, onChoice, list }) {
           }}
           key={member.disease_uid}
         >
-          <p>
+          {console.log("inside Map List", list[0].selection.disease_uid)}
+          {console.log("inside Map Cast", member.disease_uid)}
+
+          <p style={{ color: "green" }}>
             {member.disease_uid}
             <br></br>
             {member.disease_name}
