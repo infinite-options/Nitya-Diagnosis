@@ -38,13 +38,13 @@ export default function ListMembers({ cast, onChoice, list }) {
           {console.log("inside Map Cast", member.disease_uid)}
 
           {list.length > 0 ? (
-            <p style={{ color: "green" }}>
+            <p style={{ color: list[0].selection.disease_uid === member.disease_uid ? "red" : "green" }}>
               {member.disease_uid}
               <br></br>
               {member.disease_name}
             </p>
           ) : (
-            <p style={{ color: "pink" }}>
+            <p style={{ color: "blue" }}>
               {member.disease_uid}
               <br></br>
               {member.disease_name}

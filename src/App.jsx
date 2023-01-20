@@ -20,15 +20,15 @@ function App() {
   const [diseaseClicked, setDiseaseClicked] = useState(false);
   console.log("Button Status: Symptom: ", symptomClicked, "Disease: ", diseaseClicked);
 
-  let [selectionList, setSelectionList] = useState(otherList);
+  let [selectionList, setSelectionList] = useState([]);
   let [selection, setSelection] = useState(null);
 
   // FUNCTIONS -------------------------------------
 
   // USE EFFECT TO CALL VARIABLES.  IS IT CORRECT PRACTICE TO INITIALIZE THE VARIABLES?  WHY ASYNC?
-  async function fetchSymptoms() {
+  function fetchSymptoms() {
     // const response = await fetch("cast.json");
-    const response = await fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/symptoms")
+    const response = fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/symptoms")
       .then((response) => response.json())
       .then((data) => {
         setSymptomList(data.result);
@@ -38,9 +38,9 @@ function App() {
 
   // console.log("Initial Symptoms 2: ", symptomList);
 
-  async function fetchDiseases() {
+  function fetchDiseases() {
     // const response = await fetch("cast.json");
-    const response = await fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
+    const response = fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
       .then((response) => response.json())
       .then((data) => {
         setDiseaseList(data.result);
@@ -48,10 +48,10 @@ function App() {
       });
   }
 
-  useEffect(() => {
-    fetchSymptoms();
-    fetchDiseases();
-  }, []);
+  // useEffect(() => {
+  //   fetchSymptoms();
+  //   fetchDiseases();
+  // }, []);
 
   // THIS FUNCTION CAN RETURN VALUES BUT CANNOT RETURN HTML EVEN THOUGH IT CALLS CheckFunction!
   function testFunctionCall() {
@@ -68,8 +68,11 @@ function App() {
     console.log("Passed in List", list);
 
     const newList = list.concat({ selection });
+    // const newList = [];
+    // newList.push(selection);
 
     console.log("New List", newList[0]);
+    // console.log("New List", newList);
 
     setSelectionList(newList);
     setSelection(null);
@@ -106,6 +109,7 @@ function App() {
             <td>
               <button
                 onClick={() => {
+                  fetchSymptoms();
                   setSymptomClicked(!clicked);
                   setDiseaseClicked(false);
                 }}
@@ -118,6 +122,7 @@ function App() {
                 onClick={() => {
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
+                  fetchDiseases();
                 }}
               >
                 See Diseases
