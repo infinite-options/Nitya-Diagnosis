@@ -48,6 +48,7 @@ function App() {
       });
   }
 
+  // THIS WILL AUTOMATICALLY LOAD THE DATA WHEN THE PROGRAM STARTS
   // useEffect(() => {
   //   fetchSymptoms();
   //   fetchDiseases();
@@ -67,9 +68,13 @@ function App() {
     console.log("In Handle Add selection.disease_name", selection.disease_name);
     console.log("Passed in List", list);
 
-    const newList = list.concat({ selection });
-    // const newList = [];
-    // newList.push(selection);
+    const newList = list.concat(selection.disease_uid);
+    console.log("Here is the New List: ", newList);
+
+    // {disease_uid: []}
+    // {disease_uid : ['1', '2', '3' ]}
+
+    // const x = {disease_uid: newList}
 
     console.log("New List", newList[0]);
     // console.log("New List", newList);

@@ -34,11 +34,16 @@ export default function ListMembers({ cast, onChoice, list }) {
           }}
           key={member.disease_uid}
         >
-          {list.length > 0 && console.log("inside Map List", list[0].selection.disease_uid)}
-          {console.log("inside Map Cast", member.disease_uid)}
+          {console.log("List Length: ", list.length)}
+          {list.length > 0 && console.log("inside Map List", list, typeof list)}
+          {console.log("inside Map Cast", member.disease_uid, typeof member.disease_uid)}
+
+          {/* <p style={{ color: list.some(member.disease_uid) ? "red" : "green" }}> */}
+          {/* <p style={{ color: list[0].disease_uid === member.disease_uid ? "red" : "green" }}> */}
 
           {list.length > 0 ? (
-            <p style={{ color: list[0].selection.disease_uid === member.disease_uid ? "red" : "green" }}>
+            <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>
+              {/* <p style={{ color: "red" }}> */}
               {member.disease_uid}
               <br></br>
               {member.disease_name}
@@ -58,12 +63,15 @@ export default function ListMembers({ cast, onChoice, list }) {
 
       {list.map((listMember) => (
         <div style={{ color: "blue" }}>
-          <p>Inside List {listMember[0]}</p>
           <p>
-            {listMember.selection.disease_uid}
-            <br></br>
-            {listMember.selection.disease_name}
+            Inside List<br></br>
+            {listMember}
           </p>
+          {/* <p>
+            {listMember.disease_uid}
+            <br></br>
+            {listMember.disease_name}
+          </p> */}
           {/* {console.log("inside ListCast: ", member)} */}
         </div>
       ))}
