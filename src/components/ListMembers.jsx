@@ -34,18 +34,28 @@ export default function ListMembers({ cast, onChoice, list }) {
           }}
           key={member.disease_uid}
         >
-          {console.log("inside Map List", list[0].selection.disease_uid)}
+          {list.length > 0 && console.log("inside Map List", list[0].selection.disease_uid)}
           {console.log("inside Map Cast", member.disease_uid)}
 
-          <p style={{ color: "green" }}>
-            {member.disease_uid}
-            <br></br>
-            {member.disease_name}
-          </p>
+          {list.length > 0 ? (
+            <p style={{ color: "green" }}>
+              {member.disease_uid}
+              <br></br>
+              {member.disease_name}
+            </p>
+          ) : (
+            <p style={{ color: "pink" }}>
+              {member.disease_uid}
+              <br></br>
+              {member.disease_name}
+            </p>
+          )}
           {/* {console.log("inside ListCast: ", member)} */}
         </div>
       ))}
+
       <div>"Before List"</div>
+
       {list.map((listMember) => (
         <div style={{ color: "blue" }}>
           <p>Inside List {listMember[0]}</p>
