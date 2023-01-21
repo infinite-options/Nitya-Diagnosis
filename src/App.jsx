@@ -153,7 +153,7 @@ function App() {
       {/* Symptom Clicked */}
       {symptomClicked && (
         <ListMembers
-          cast={diseaseList}
+          cast={symptomList}
           onChoice={(selection) => {
             console.log("This is what was chosen: ", selection);
             setSelection(selection);

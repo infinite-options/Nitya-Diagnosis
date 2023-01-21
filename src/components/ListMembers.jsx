@@ -19,34 +19,57 @@ export default function ListMembers({ cast, onChoice, list, type }) {
       {console.log("inside List", list)}
       {console.log("inside Cast", cast)} */}
 
-      {cast.map((member) => (
-        <div
-          style={{ color: "red" }}
-          onClick={() => {
-            onChoice(member);
-          }}
-          key={member.disease_uid}
-        >
-          {/* {console.log("List Length: ", list.length)}
-          {list.length > 0 && console.log("inside Map List", list, typeof list)}
-          {console.log("inside Map Cast", member.disease_uid, typeof member.disease_uid)} */}
+      {type === "disease" &&
+        cast.map((member) => (
+          <div
+            style={{ color: "red" }}
+            onClick={() => {
+              onChoice(member);
+            }}
+            key={member.disease_uid}
+          >
+            {list.length > 0 ? (
+              <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>
+                {/* <p style={{ color: "red" }}> */}
+                {member.disease_uid}
+                <br></br>
+                {member.disease_name}
+              </p>
+            ) : (
+              <p style={{ color: "blue" }}>
+                {member.disease_uid}
+                <br></br>
+                {member.disease_name}
+              </p>
+            )}
+          </div>
+        ))}
 
-          {list.length > 0 ? (
-            <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>
-              {/* <p style={{ color: "red" }}> */}
-              {member.disease_uid}
-              <br></br>
-              {member.disease_name}
-            </p>
-          ) : (
-            <p style={{ color: "blue" }}>
-              {member.disease_uid}
-              <br></br>
-              {member.disease_name}
-            </p>
-          )}
-        </div>
-      ))}
+      {type === "symptom" &&
+        cast.map((member) => (
+          <div
+            style={{ color: "red" }}
+            onClick={() => {
+              onChoice(member);
+            }}
+            key={member.symptom_uid}
+          >
+            {list.length > 0 ? (
+              <p style={{ color: list.some((e) => e === member.symptom_uid) ? "red" : "green" }}>
+                {/* <p style={{ color: "red" }}> */}
+                {member.symptom_uid}
+                <br></br>
+                {member.symptom_name}
+              </p>
+            ) : (
+              <p style={{ color: "blue" }}>
+                {member.symptom_uid}
+                <br></br>
+                {member.symptom_name}
+              </p>
+            )}
+          </div>
+        ))}
     </div>
   );
 }
