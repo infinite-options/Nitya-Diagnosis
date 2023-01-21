@@ -162,6 +162,23 @@ function App() {
               </button>
             </td>
           </tr>
+          <tr align="center" border="1" bgcolor="green">
+            <td colSpan="2">
+              {/* These seem to be equivalent */}
+              {/* <button onClick={testFunctionCall}>See Symptoms1</button> */}
+              {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
+              <button
+                onClick={() => {
+                  testFunctionCall();
+                  setSymptomClicked(false);
+                  setDiseaseClicked(false);
+                  setSelectionList([]);
+                }}
+              >
+                See Results
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
 
