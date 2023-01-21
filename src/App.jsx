@@ -129,6 +129,7 @@ function App() {
                   testFunctionCall();
                   setSymptomClicked(false);
                   setDiseaseClicked(false);
+                  setSelectionList([]);
                 }}
               >
                 See Symptoms1
@@ -142,6 +143,7 @@ function App() {
                   fetchSymptoms();
                   setSymptomClicked(!clicked);
                   setDiseaseClicked(false);
+                  setSelectionList([]);
                 }}
               >
                 See Symptoms
@@ -153,6 +155,7 @@ function App() {
                   fetchDiseases();
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
+                  setSelectionList([]);
                 }}
               >
                 See Diseases
