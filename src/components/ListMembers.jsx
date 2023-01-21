@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function ListMembers({ cast, onChoice, list }) {
+export default function ListMembers({ cast, onChoice, list, type }) {
   console.log("In List Members");
   console.log("Cast in List Members: ", cast);
   console.log("Selected Members: ", list);
+  console.log("Disease or Symptom: ", type);
   return (
     <div
       style={{
@@ -13,10 +14,10 @@ export default function ListMembers({ cast, onChoice, list }) {
         marginBottom: "1rem",
       }}
     >
-      {console.log("inside ListMember")}
+      {/* {console.log("inside ListMember")}
 
       {console.log("inside List", list)}
-      {console.log("inside Cast", cast)}
+      {console.log("inside Cast", cast)} */}
 
       {cast.map((member) => (
         <div
@@ -26,9 +27,9 @@ export default function ListMembers({ cast, onChoice, list }) {
           }}
           key={member.disease_uid}
         >
-          {console.log("List Length: ", list.length)}
+          {/* {console.log("List Length: ", list.length)}
           {list.length > 0 && console.log("inside Map List", list, typeof list)}
-          {console.log("inside Map Cast", member.disease_uid, typeof member.disease_uid)}
+          {console.log("inside Map Cast", member.disease_uid, typeof member.disease_uid)} */}
 
           {list.length > 0 ? (
             <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>

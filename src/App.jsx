@@ -151,7 +151,17 @@ function App() {
       </table>
 
       {/* Symptom Clicked */}
-      {symptomClicked && <CheckFunction />}
+      {symptomClicked && (
+        <ListMembers
+          cast={diseaseList}
+          onChoice={(selection) => {
+            console.log("This is what was chosen: ", selection);
+            setSelection(selection);
+          }}
+          list={selectionList}
+          type={diseaseClicked === true ? "disease" : "symptom"}
+        />
+      )}
 
       {/* Disease Clicked */}
       {console.log("Disease List to Pass: ", diseaseList)}
@@ -164,6 +174,7 @@ function App() {
             setSelection(selection);
           }}
           list={selectionList}
+          type={diseaseClicked === true ? "disease" : "symptom"}
         />
       )}
 
