@@ -59,21 +59,33 @@ function App() {
     // <ListMembers list={symptomList} />;
   }
 
-  function handleAdd(selection, list) {
-    console.log("In Handle Add selection", selection);
-    console.log("In Handle Add selection.disease_name", selection.disease_name);
+  // function handleAdd(selection, list) {
+  //   console.log("In Handle Add selection", selection);
+  //   console.log("In Handle Add selection.disease_name", selection.disease_name);
+  //   console.log("Passed in List", list);
+
+  //   const newList = list.concat(selection.disease_uid);
+  //   console.log("Here is the New List: ", newList);
+
+  //   // {disease_uid: []}
+  //   // {disease_uid : ['1', '2', '3' ]}
+
+  //   // const x = {disease_uid: newList}
+
+  //   console.log("New List", newList[0]);
+  //   // console.log("New List", newList);
+
+  //   setSelectionList(newList);
+  //   setSelection(null);
+  // }
+
+  function pickSymptom(selection, list) {
+    console.log("In Pick Symptom selection", selection);
+    console.log("In Pick Symptom selection.disease_name", selection.symptom_name);
     console.log("Passed in List", list);
 
-    const newList = list.concat(selection.disease_uid);
+    const newList = list.concat(selection.symptom_uid);
     console.log("Here is the New List: ", newList);
-
-    // {disease_uid: []}
-    // {disease_uid : ['1', '2', '3' ]}
-
-    // const x = {disease_uid: newList}
-
-    console.log("New List", newList[0]);
-    // console.log("New List", newList);
 
     setSelectionList(newList);
     setSelection(null);
@@ -181,9 +193,17 @@ function App() {
       {/* Confirm that what was selected can be accessed */}
       {console.log("Newly Selected: ", selection)}
       {console.log("Current List: ", selectionList)}
+      {console.log("Disease Selected: ", diseaseClicked)}
 
       {/* {selection && pickDisease(selection.disease_name, selectionList)} */}
-      {selection && pickDisease(selection, selectionList)}
+
+      {/* {selection && diseaseClicked ? pickDisease(selection, selectionList) : pickSymptom(selection, selectionList)}
+      {console.log("Updated List: ", selectionList)} */}
+
+      {selection && symptomClicked && pickSymptom(selection, selectionList)}
+      {console.log("Updated List: ", selectionList)}
+
+      {selection && diseaseClicked && pickDisease(selection, selectionList)}
       {console.log("Updated List: ", selectionList)}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
