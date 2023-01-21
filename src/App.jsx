@@ -5,10 +5,9 @@ import ListMembers from "./components/ListMembers";
 import CheckFunction from "./components/CheckFunction";
 import SelectionList from "./components/SelectionList";
 
-const otherList = [];
-
 function App() {
   // VARIABLES
+  const type = "symptom";
   const [list, setList] = useState([]);
   const [symptomList, setSymptomList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
@@ -63,28 +62,37 @@ function App() {
     // <ListMembers list={symptomList} />;
   }
 
-  function handleAdd(selection, list) {
-    console.log("In Handle Add selection", selection);
-    console.log("In Handle Add selection.disease_name", selection.disease_name);
-    console.log("Passed in List", list);
+  function addSymptom(selection, list) {
+    console.log("In addSymptom, Selection:", selection);
+    console.log("In addSymptom, List:", list);
 
-    const newList = list.concat(selection.disease_uid);
-    console.log("Here is the New List: ", newList);
-
-    // {disease_uid: []}
-    // {disease_uid : ['1', '2', '3' ]}
-
-    // const x = {disease_uid: newList}
-
-    console.log("New List", newList[0]);
-    // console.log("New List", newList);
+    const newList = list.concat(selection.symptom_uid);
+    console.log("Here is the New Symptom List: ", newList);
 
     setSelectionList(newList);
     setSelection(null);
   }
 
+  function addDisease(selection, list) {
+    console.log("In addDisease, Selection:", selection);
+    console.log("In addDisease, List:", list);
+
+    const newList = list.concat(selection.disease_uid);
+    console.log("Here is the New Disease List: ", newList);
+
+    setSelectionList(newList);
+    setSelection(null);
+  }
+
+  // PASS A JSON OBJECT INTO AN ENDPOINT
+  // {disease_uid: []}
+  // {disease_uid : ['1', '2', '3' ]}
+
+  // const x = {disease_uid: newList}
   // OUTPUT
   // Could I do the onClick with a ternary?
+
+  // HOW DO I MOVE THIS TO A SEPARATE FILE
   return (
     <div className="NityaSite">
       <table id="myTable">
@@ -125,9 +133,9 @@ function App() {
             <td>
               <button
                 onClick={() => {
+                  fetchDiseases();
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
-                  fetchDiseases();
                 }}
               >
                 See Diseases
@@ -136,13 +144,23 @@ function App() {
           </tr>
         </tbody>
       </table>
-
       {/* Symptom Clicked */}
-      {symptomClicked && <CheckFunction />}
-
+      {/* {console.log("Disease List to Pass: ", diseaseList)}
+      {console.log("Currently Selected: ", selectionList)} */}
+      {symptomClicked && (
+        <ListMembers
+          cast={symptomList}
+          onChoice={(selection) => {
+            console.log("This is what was chosen: ", selection);
+            setSelection(selection);
+          }}
+          list={selectionList}
+          type="symptom"
+        />
+      )}
       {/* Disease Clicked */}
-      {console.log("Disease List to Pass: ", diseaseList)}
-      {console.log("Currently Selected: ", selectionList)}
+      {/* {console.log("Disease List to Pass: ", diseaseList)}
+      {console.log("Currently Selected: ", selectionList)} */}
       {diseaseClicked && (
         <ListMembers
           cast={diseaseList}
@@ -151,20 +169,17 @@ function App() {
             setSelection(selection);
           }}
           list={selectionList}
+          type="disease"
         />
       )}
-
-      {/* Confirm that what was selected can be accessed */}
-      {console.log("Newly Selected: ", selection)}
-      {console.log("Current List: ", selectionList)}
-
-      {/* Pass selection into SelectionList and add it to Selection List */}
-      {/* <SelectionList currentList={selectionList} newSelection={selection} /> */}
-
-      {/* {selection && handleAdd(selection.disease_name, selectionList)} */}
-      {selection && handleAdd(selection, selectionList)}
+      {/* CONFIRM WAS WAS SELECTED CAN BE ACCESSED */}
+      {/* {console.log("Newly Selected: ", selection)} */}
+      {/* {console.log("Current List: ", selectionList)} */}
+      {/* IF SOMETHING HAS BEEN SELECTED, ADD IT TO THE SELECTION LIST */}
+      {selection && type === "symptom" ? addSymptom(selection, selectionList) : addDisease(selection, selectionList)}}
+      {/* IF SOMETHING HAS BEEN SELECTED, ADD IT TO THE SELECTION LIST */}
+      {/* {selection && addDisease(selection, selectionList)} */}
       {console.log("Updated List: ", selectionList)}
-
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
       <br></br>
       <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
