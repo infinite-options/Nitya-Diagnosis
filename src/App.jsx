@@ -24,7 +24,7 @@ function App() {
   // USE EFFECT TO CALL VARIABLES.  IS IT CORRECT PRACTICE TO INITIALIZE THE VARIABLES?  WHY ASYNC?
   function fetchSymptoms() {
     // const response = await fetch("cast.json");
-    const response = fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/symptoms")
+    fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/symptoms")
       .then((response) => response.json())
       .then((data) => {
         setSymptomList(data.result);
@@ -36,12 +36,31 @@ function App() {
 
   function fetchDiseases() {
     // const response = await fetch("cast.json");
-    const response = fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
+    fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
       .then((response) => response.json())
       .then((data) => {
         setDiseaseList(data.result);
         console.log("in fetchDiseases: ", diseaseList);
       });
+  }
+
+  function findDiseases(selectionList) {
+    console.log("Input Symptoms: ", selectionList);
+    let resultList = [];
+    // const response = await fetch("cast.json");
+    selectionList.forEach(async (element) => {
+      console.log("Print element: ", element);
+      console.log("Test element: ", element);
+      await fetch(`https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/dfroms/${element}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data Result: ", data.result);
+          setDiseaseList(data.result);
+          resultList = resultList.concat(data.result);
+          console.log("in fetchDiseases: ", resultList);
+        });
+    });
+    // console.log("Returned List: ", newList);
   }
 
   // THIS WILL AUTOMATICALLY LOAD THE DATA WHEN THE PROGRAM STARTS
@@ -169,7 +188,7 @@ function App() {
               {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
               <button
                 onClick={() => {
-                  testFunctionCall();
+                  findDiseases(selectionList);
                   setSymptomClicked(false);
                   setDiseaseClicked(false);
                   setSelectionList([]);
