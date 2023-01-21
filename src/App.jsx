@@ -5,16 +5,12 @@ import ListMembers from "./components/ListMembers";
 import CheckFunction from "./components/CheckFunction";
 import SelectionList from "./components/SelectionList";
 
-const otherList = [];
-
 function App() {
   // VARIABLES
   const [list, setList] = useState([]);
   const [symptomList, setSymptomList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
-  // console.log("Here is the List initially: ", list); //Why do I need this statement to trigger diseases and symptoms?
-  // console.log("Initial Symptoms: ", symptomList); //Why don't these load at the same time?
-  // console.log("Initial Diseases: ", diseaseList);
+
   const [clicked, setClicked] = useState(false);
   const [symptomClicked, setSymptomClicked] = useState(false);
   const [diseaseClicked, setDiseaseClicked] = useState(false);
@@ -83,6 +79,23 @@ function App() {
     setSelection(null);
   }
 
+  function pickDisease(selection, list) {
+    console.log("In Pick Disease selection", selection);
+    console.log("In Pick Disease selection.disease_name", selection.disease_name);
+    console.log("Passed in List", list);
+
+    const newList = list.concat(selection.disease_uid);
+    console.log("Here is the New List: ", newList);
+
+    setSelectionList(newList);
+    setSelection(null);
+  }
+
+  // HOW TO PASS JSON DATA INTO ENDPOINT CALL
+  // {disease_uid: []}
+  // {disease_uid : ['1', '2', '3' ]}
+  // const x = {disease_uid: newList}
+
   // OUTPUT
   // Could I do the onClick with a ternary?
   return (
@@ -125,9 +138,9 @@ function App() {
             <td>
               <button
                 onClick={() => {
+                  fetchDiseases();
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
-                  fetchDiseases();
                 }}
               >
                 See Diseases
@@ -158,11 +171,8 @@ function App() {
       {console.log("Newly Selected: ", selection)}
       {console.log("Current List: ", selectionList)}
 
-      {/* Pass selection into SelectionList and add it to Selection List */}
-      {/* <SelectionList currentList={selectionList} newSelection={selection} /> */}
-
-      {/* {selection && handleAdd(selection.disease_name, selectionList)} */}
-      {selection && handleAdd(selection, selectionList)}
+      {/* {selection && pickDisease(selection.disease_name, selectionList)} */}
+      {selection && pickDisease(selection, selectionList)}
       {console.log("Updated List: ", selectionList)}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
