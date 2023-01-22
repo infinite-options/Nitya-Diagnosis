@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ListMembers from "./components/ListMembers";
-import ListResults from "./components/ListResults";
 import CheckFunction from "./components/CheckFunction";
 import SelectionList from "./components/SelectionList";
 
@@ -19,7 +18,7 @@ function App() {
 
   let [selectionList, setSelectionList] = useState([]);
   let [selection, setSelection] = useState(null);
-  let [resultsListx, setResultsListx] = useState([]);
+  let [resultsList, setResultsList] = useState([]);
 
   // FUNCTIONS -------------------------------------
 
@@ -48,7 +47,7 @@ function App() {
 
   function findDiseases(selectionList) {
     console.log("Input Symptoms: ", selectionList);
-    let resultList = [];
+    let diseaseResultList = [];
     // const response = await fetch("cast.json");
     selectionList.forEach((element) => {
       console.log("Print element: ", element);
@@ -58,17 +57,18 @@ function App() {
         .then((data) => {
           console.log("Data Result: ", data.result);
           setDiseaseList(data.result);
-          resultList = resultList.concat(data.result);
-          console.log("in fetchDiseases: ", resultList);
-          setResultsListx(resultList);
-          console.log("After findDiseases: ", resultsListx);
+          diseaseResultList = diseaseResultList.concat(data.result);
+          console.log("in fetchDiseases: ", diseaseResultList);
+          setResultsList(diseaseResultList);
+          console.log("After findDiseases: ", resultsList);
         });
     });
-    // setResultsList(resultList);
-    // console.log("After findDiseases: ", resultsList);
-
-    // console.log("Returned List: ", newList);
   }
+
+  // HOW TO PASS JSON DATA INTO ENDPOINT CALL
+  // {disease_uid: []}
+  // {disease_uid : ['1', '2', '3' ]}
+  // const x = {disease_uid: newList}
 
   // THIS WILL AUTOMATICALLY LOAD THE DATA WHEN THE PROGRAM STARTS
   // useEffect(() => {
@@ -85,25 +85,7 @@ function App() {
     // <ListMembers list={symptomList} />;
   }
 
-  // function handleAdd(selection, list) {
-  //   console.log("In Handle Add selection", selection);
-  //   console.log("In Handle Add selection.disease_name", selection.disease_name);
-  //   console.log("Passed in List", list);
-
-  //   const newList = list.concat(selection.disease_uid);
-  //   console.log("Here is the New List: ", newList);
-
-  //   // {disease_uid: []}
-  //   // {disease_uid : ['1', '2', '3' ]}
-
-  //   // const x = {disease_uid: newList}
-
-  //   console.log("New List", newList[0]);
-  //   // console.log("New List", newList);
-
-  //   setSelectionList(newList);
-  //   setSelection(null);
-  // }
+  // SELECTION FUNCTIONS
 
   function pickSymptom(selection, list) {
     console.log("In Pick Symptom selection", selection);
@@ -129,13 +111,7 @@ function App() {
     setSelection(null);
   }
 
-  // HOW TO PASS JSON DATA INTO ENDPOINT CALL
-  // {disease_uid: []}
-  // {disease_uid : ['1', '2', '3' ]}
-  // const x = {disease_uid: newList}
-
   // OUTPUT
-  // Could I do the onClick with a ternary?
   return (
     <div className="NityaSite">
       <table id="myTable">
@@ -145,28 +121,13 @@ function App() {
               <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
             </td>
           </tr>
-          <tr align="center" border="1" bgcolor="green">
-            <td colSpan="2">
-              {/* These seem to be equivalent */}
-              {/* <button onClick={testFunctionCall}>See Symptoms1</button> */}
-              {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
-              <button
-                onClick={() => {
-                  testFunctionCall();
-                  setSymptomClicked(false);
-                  setDiseaseClicked(false);
-                  setSelectionList([]);
-                }}
-              >
-                See Symptoms1
-              </button>
-            </td>
-          </tr>
+
           <tr align="center" border="1" bgcolor="green">
             <td>
               <button
                 onClick={() => {
                   fetchSymptoms();
+                  setResultsList([]);
                   setSymptomClicked(!clicked);
                   setDiseaseClicked(false);
                   setSelectionList([]);
@@ -179,6 +140,7 @@ function App() {
               <button
                 onClick={() => {
                   fetchDiseases();
+                  setResultsList([]);
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
                   setSelectionList([]);
@@ -237,11 +199,11 @@ function App() {
       )}
 
       {/* Result Clicked */}
-      {console.log("Result List to Pass: ", resultsListx)}
+      {console.log("Result List to Pass: ", resultsList)}
       {console.log("Currently Selected: ", selectionList)}
-      {resultsListx && (
+      {resultsList && (
         <ListMembers
-          cast={resultsListx}
+          cast={resultsList}
           onChoice={(selection) => {
             console.log("These are the Results chosen: ", selection);
             setSelection(selection);
