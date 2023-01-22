@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ListMembers from "./components/ListMembers";
+import ListResults from "./components/ListResults";
 import CheckFunction from "./components/CheckFunction";
 import SelectionList from "./components/SelectionList";
 
@@ -18,6 +19,7 @@ function App() {
 
   let [selectionList, setSelectionList] = useState([]);
   let [selection, setSelection] = useState(null);
+  let [resultsListx, setResultsListx] = useState([]);
 
   // FUNCTIONS -------------------------------------
 
@@ -48,18 +50,23 @@ function App() {
     console.log("Input Symptoms: ", selectionList);
     let resultList = [];
     // const response = await fetch("cast.json");
-    selectionList.forEach(async (element) => {
+    selectionList.forEach((element) => {
       console.log("Print element: ", element);
       console.log("Test element: ", element);
-      await fetch(`https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/dfroms/${element}`)
+      fetch(`https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/dfroms/${element}`)
         .then((response) => response.json())
         .then((data) => {
           console.log("Data Result: ", data.result);
           setDiseaseList(data.result);
           resultList = resultList.concat(data.result);
           console.log("in fetchDiseases: ", resultList);
+          setResultsListx(resultList);
+          console.log("After findDiseases: ", resultsListx);
         });
     });
+    // setResultsList(resultList);
+    // console.log("After findDiseases: ", resultsList);
+
     // console.log("Returned List: ", newList);
   }
 
@@ -226,6 +233,21 @@ function App() {
           }}
           list={selectionList}
           type={diseaseClicked === true ? "disease" : "symptom"}
+        />
+      )}
+
+      {/* Result Clicked */}
+      {console.log("Result List to Pass: ", resultsListx)}
+      {console.log("Currently Selected: ", selectionList)}
+      {resultsListx && (
+        <ListMembers
+          cast={resultsListx}
+          onChoice={(selection) => {
+            console.log("These are the Results chosen: ", selection);
+            setSelection(selection);
+          }}
+          list={selectionList}
+          type="results"
         />
       )}
 
