@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import ListMembers from "./components/ListMembers";
-import CheckFunction from "./components/CheckFunction";
-import SelectionList from "./components/SelectionList";
 
 function App() {
   // VARIABLES
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
   const [symptomList, setSymptomList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
 
-  const [clicked, setClicked] = useState(false);
+  const clicked = false;
+  // const [clicked, setClicked] = useState(false);
   const [symptomClicked, setSymptomClicked] = useState(false);
   const [diseaseClicked, setDiseaseClicked] = useState(false);
   console.log("Button Status: Symptom: ", symptomClicked, "Disease: ", diseaseClicked);
@@ -76,15 +75,6 @@ function App() {
   //   fetchDiseases();
   // }, []);
 
-  // THIS FUNCTION CAN RETURN VALUES BUT CANNOT RETURN HTML EVEN THOUGH IT CALLS CheckFunction!
-  function testFunctionCall() {
-    // alert("Hello!");
-    console.log("Testing Hello");
-    CheckFunction();
-    console.log("Testing Hello Again");
-    // <ListMembers list={symptomList} />;
-  }
-
   // SELECTION FUNCTIONS
 
   function pickSymptom(selection, list) {
@@ -92,10 +82,13 @@ function App() {
     console.log("In Pick Symptom selection.disease_name", selection.symptom_name);
     console.log("Passed in List", list);
 
-    const newList = list.concat(selection.symptom_uid);
-    console.log("Here is the New List: ", newList);
-
-    setSelectionList(newList);
+    console.log(list.includes(selection.symptom_uid));
+    if (!list.includes(selection.symptom_uid)) {
+      const newList = list.concat(selection.symptom_uid);
+      setSelectionList(newList);
+      console.log("Here is the New List: ", newList);
+    }
+    console.log("Here is the Current List: ", selectionList);
     setSelection(null);
   }
 
@@ -104,10 +97,13 @@ function App() {
     console.log("In Pick Disease selection.disease_name", selection.disease_name);
     console.log("Passed in List", list);
 
-    const newList = list.concat(selection.disease_uid);
-    console.log("Here is the New List: ", newList);
-
-    setSelectionList(newList);
+    console.log(list.includes(selection.disease_uid));
+    if (!list.includes(selection.disease_uid)) {
+      const newList = list.concat(selection.disease_uid);
+      setSelectionList(newList);
+      console.log("Here is the New List: ", newList);
+    }
+    console.log("Here is the Current List: ", selectionList);
     setSelection(null);
   }
 
@@ -128,9 +124,9 @@ function App() {
                 onClick={() => {
                   fetchSymptoms();
                   setResultsList([]);
+                  setSelectionList([]);
                   setSymptomClicked(!clicked);
                   setDiseaseClicked(false);
-                  setSelectionList([]);
                 }}
               >
                 See Symptoms
@@ -141,9 +137,9 @@ function App() {
                 onClick={() => {
                   fetchDiseases();
                   setResultsList([]);
+                  setSelectionList([]);
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
-                  setSelectionList([]);
                 }}
               >
                 See Diseases
