@@ -38,20 +38,40 @@ export default function ListResults({ cast, onChoice, list, type }) {
 
   // FOR EACH UNIQUE LIST PRINT OUT THE SYMPTOMS
 
-  uniqueDiseaseList.forEach((disease) => {
-    console.log("Print disease: ", disease);
-    newList = [];
-    cast.forEach((element) => {
-      console.log("Print element: ", element.disease_uid);
-      if (disease === element.disease_uid) {
-        //   uniqueDiseaseList = newList.concat(element.disease_uid);
-        newList = newList.concat(element);
-        //   console.log("Unique List: ", uniqueDiseaseList);
-      }
+  //   uniqueDiseaseList.forEach((disease) => {
+  //     console.log("Print disease: ", disease);
+  //     newList = [];
+  //     cast.forEach((element) => {
+  //       console.log("Print element: ", element.disease_uid);
+  //       if (disease === element.disease_uid) {
+  //         //   uniqueDiseaseList = newList.concat(element.disease_uid);
+  //         newList = newList.concat(element);
+  //         //   console.log("Unique List: ", uniqueDiseaseList);
+  //       }
 
-      console.log("Symptoms for Disease: ", disease, newList);
-    });
-  });
+  //       console.log("Symptoms for Disease: ", disease, newList);
+  //     });
+  //   });
 
-  return <div>uniqueDiseaseList</div>;
+  return (
+    <div>
+      <div>
+        {uniqueDiseaseList.map((disease) => {
+          return (
+            <div>
+              {disease}
+              {cast.map((element) => {
+                return disease === element.disease_uid ? <div>{element.ds_symptom_uid}</div> : "";
+              })}
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        <p>Hello</p>
+        {/* <p>{newList}</p> */}
+        <p>Goodbye</p>
+      </div>
+    </div>
+  );
 }
