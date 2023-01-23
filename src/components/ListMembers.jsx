@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ListMembers({ cast, onChoice, list, type }) {
-  console.log("In List Members");
+  console.log("In List Members ---------------------------------------------");
   console.log("Cast in List Members: ", cast);
   console.log("Selected Members: ", list);
   console.log("Disease or Symptom: ", type);
