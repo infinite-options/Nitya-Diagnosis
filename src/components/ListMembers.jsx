@@ -81,7 +81,7 @@ export default function ListMembers({ cast, onChoice, list, type }) {
             key={member.ds_uid}
           >
             {list.length > 0 ? (
-              <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>
+              <p style={{ color: list.some((e) => e === member.ds_uid) ? "red" : "green" }}>
                 {/* <p style={{ color: "red" }}> */}
                 {member.ds_uid}
                 <br></br>
