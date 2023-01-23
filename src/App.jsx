@@ -8,16 +8,20 @@ function App() {
   // const [list, setList] = useState([]);
   const [symptomList, setSymptomList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
+  const [resultsList, setResultsList] = useState([]);
+  const [newList, setNewList] = useState([]);
 
   const clicked = false;
+
   // const [clicked, setClicked] = useState(false);
   const [symptomClicked, setSymptomClicked] = useState(false);
   const [diseaseClicked, setDiseaseClicked] = useState(false);
+  console.log("IN APP-----------------------------------");
   console.log("Button Status: Symptom: ", symptomClicked, "Disease: ", diseaseClicked);
 
   let [selectionList, setSelectionList] = useState([]);
   let [selection, setSelection] = useState(null);
-  let [resultsList, setResultsList] = useState([]);
+  // let [resultsList, setResultsList] = useState([]);
 
   // FUNCTIONS -------------------------------------
 
@@ -79,31 +83,51 @@ function App() {
 
   function pickSymptom(selection, list) {
     console.log("In Pick Symptom selection", selection);
-    console.log("In Pick Symptom selection.disease_name", selection.symptom_name);
+    console.log("In Pick Symptom selection.symptom_uid", selection.symptom_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.symptom_uid));
     if (!list.includes(selection.symptom_uid)) {
-      const newList = list.concat(selection.symptom_uid);
+      console.log("Inside IF statement ");
+      setNewList(list.concat(selection.symptom_uid));
+      console.log("Here is the New List: ", newList);
       setSelectionList(newList);
+      console.log("Here is the New List: ", selectionList);
       console.log("Here is the New List: ", newList);
     }
-    console.log("Here is the Current List: ", selectionList);
+    console.log("Here is the Symptom Current List: ", selectionList);
     setSelection(null);
   }
 
   function pickDisease(selection, list) {
     console.log("In Pick Disease selection", selection);
-    console.log("In Pick Disease selection.disease_name", selection.disease_name);
+    console.log("In Pick Disease selection.disease_uid", selection.disease_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.disease_uid));
     if (!list.includes(selection.disease_uid)) {
-      const newList = list.concat(selection.disease_uid);
+      // const newList = list.concat(selection.disease_uid);
+      setNewList(list.concat(selection.disease_uid));
       setSelectionList(newList);
       console.log("Here is the New List: ", newList);
     }
-    console.log("Here is the Current List: ", selectionList);
+    console.log("Here is the Disease Current List: ", selectionList);
+    setSelection(null);
+  }
+
+  function pickResult(selection, list) {
+    console.log("In Pick Result selection", selection);
+    console.log("In Pick Result selection.result_uid", selection.ds_uid);
+    console.log("Passed in List", list);
+
+    console.log(list.includes(selection.ds_uid));
+    if (!list.includes(selection.ds_uid)) {
+      // newList = list.concat(selection.ds_uid);
+      setNewList(list.concat(selection.ds_uid));
+      setSelectionList(newList);
+      console.log("Here is the New List: ", newList);
+    }
+    console.log("Here is the Results Current List: ", selectionList);
     setSelection(null);
   }
 
@@ -124,6 +148,7 @@ function App() {
                 onClick={() => {
                   fetchSymptoms();
                   setResultsList([]);
+                  setSelection([]);
                   setSelectionList([]);
                   setSymptomClicked(!clicked);
                   setDiseaseClicked(false);
@@ -137,6 +162,7 @@ function App() {
                 onClick={() => {
                   fetchDiseases();
                   setResultsList([]);
+                  setSelection([]);
                   setSelectionList([]);
                   setDiseaseClicked(!clicked);
                   setSymptomClicked(false);
@@ -154,9 +180,10 @@ function App() {
               <button
                 onClick={() => {
                   findDiseases(selectionList);
+                  setSelection([]);
+                  setSelectionList([]);
                   setSymptomClicked(false);
                   setDiseaseClicked(false);
-                  setSelectionList([]);
                 }}
               >
                 See Results
@@ -167,11 +194,16 @@ function App() {
       </table>
 
       {/* Symptom Clicked */}
+      {console.log("SEE SYMPTOM BUTTON PRESSED----------------------------------")}
+      {console.log("Symptom List to Pass: ", symptomList)}
+      {console.log("Currently Selected: ", selectionList)}
       {symptomClicked && (
         <ListMembers
           cast={symptomList}
           onChoice={(selection) => {
             console.log("This is what was chosen: ", selection);
+            // console.log("This is what is in cast: ", cast);
+            console.log("This is what is in cast & symptomList: ", symptomList);
             setSelection(selection);
           }}
           list={selectionList}
@@ -180,6 +212,7 @@ function App() {
       )}
 
       {/* Disease Clicked */}
+      {console.log("SEE DISEASE BUTTON PRESSED----------------------------------")}
       {console.log("Disease List to Pass: ", diseaseList)}
       {console.log("Currently Selected: ", selectionList)}
       {diseaseClicked && (
@@ -195,6 +228,7 @@ function App() {
       )}
 
       {/* Result Clicked */}
+      {console.log("SEE RESULT BUTTON PRESSED-----------------------------------")}
       {console.log("Result List to Pass: ", resultsList)}
       {console.log("Currently Selected: ", selectionList)}
       {resultsList && (
@@ -210,6 +244,7 @@ function App() {
       )}
 
       {/* Confirm that what was selected can be accessed */}
+      {console.log("CONFIRM WHAT WAS SELECTED CAN BE ACCESSED-----------------------------------")}
       {console.log("Newly Selected: ", selection)}
       {console.log("Current List: ", selectionList)}
       {console.log("Disease Selected: ", diseaseClicked)}
@@ -219,11 +254,15 @@ function App() {
       {/* {selection && diseaseClicked ? pickDisease(selection, selectionList) : pickSymptom(selection, selectionList)}
       {console.log("Updated List: ", selectionList)} */}
 
+      {console.log("UPDATED selectionList-----------------------------------")}
       {selection && symptomClicked && pickSymptom(selection, selectionList)}
-      {console.log("Updated List: ", selectionList)}
+      {console.log("symptomClicked Updated List: ", selectionList)}
 
       {selection && diseaseClicked && pickDisease(selection, selectionList)}
-      {console.log("Updated List: ", selectionList)}
+      {console.log("diseaseClicked Updated List: ", selectionList)}
+
+      {selection && !diseaseClicked && !symptomClicked && pickResult(selection, selectionList)}
+      {console.log("resultClicked Updated List: ", selectionList)}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
       <br></br>
