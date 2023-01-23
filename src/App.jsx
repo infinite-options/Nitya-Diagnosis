@@ -79,7 +79,7 @@ function App() {
 
   function pickSymptom(selection, list) {
     console.log("In Pick Symptom selection", selection);
-    console.log("In Pick Symptom selection.disease_name", selection.symptom_name);
+    console.log("In Pick Symptom selection.symptom_name", selection.symptom_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.symptom_uid));
@@ -94,12 +94,27 @@ function App() {
 
   function pickDisease(selection, list) {
     console.log("In Pick Disease selection", selection);
-    console.log("In Pick Disease selection.disease_name", selection.disease_name);
+    console.log("In Pick Disease selection.disease_name", selection.disease_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.disease_uid));
     if (!list.includes(selection.disease_uid)) {
       const newList = list.concat(selection.disease_uid);
+      setSelectionList(newList);
+      console.log("Here is the New List: ", newList);
+    }
+    console.log("Here is the Current List: ", selectionList);
+    setSelection(null);
+  }
+
+  function pickResult(selection, list) {
+    console.log("In Pick Disease selection", selection);
+    console.log("In Pick Disease selection.result_name", selection.ds_uid);
+    console.log("Passed in List", list);
+
+    console.log(list.includes(selection.ds_uid));
+    if (!list.includes(selection.ds_uid)) {
+      const newList = list.concat(selection.ds_uid);
       setSelectionList(newList);
       console.log("Here is the New List: ", newList);
     }
@@ -223,6 +238,9 @@ function App() {
       {console.log("Updated List: ", selectionList)}
 
       {selection && diseaseClicked && pickDisease(selection, selectionList)}
+      {console.log("Updated List: ", selectionList)}
+
+      {selection && !diseaseClicked && !symptomClicked && pickResult(selection, selectionList)}
       {console.log("Updated List: ", selectionList)}
 
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
