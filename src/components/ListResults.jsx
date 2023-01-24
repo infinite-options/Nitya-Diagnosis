@@ -55,23 +55,22 @@ export default function ListResults({ cast, onChoice, list, type }) {
 
   return (
     <div>
-      <div>
-        {uniqueDiseaseList.map((disease) => {
-          return (
-            <div>
-              {disease}
-              {cast.map((element) => {
-                return disease === element.disease_uid ? <div>{element.ds_symptom_uid}</div> : "";
-              })}
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        <p>Hello</p>
-        {/* <p>{newList}</p> */}
-        <p>Goodbye</p>
-      </div>
+      {uniqueDiseaseList.map((disease) => {
+        return (
+          <table>
+            <tbody>
+              <tr>
+                <td>{disease}</td>
+                <td>
+                  {cast.map((element) => {
+                    return disease === element.disease_uid ? <div>{element.ds_symptom_uid}</div> : "";
+                  })}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        );
+      })}
     </div>
   );
 }
