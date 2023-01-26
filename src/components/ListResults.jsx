@@ -17,15 +17,6 @@ export default function ListResults({ cast, onChoice, list, type }) {
   let uniqueDiseaseList = [];
   let uniqueSymptomList = [];
 
-  function fetchDiseases() {
-    fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
-      .then((response) => response.json())
-      .then((data) => {
-        setDiseaseList(data.result);
-        console.log("in fetchDiseases: ", diseaseList);
-      });
-  }
-
   // CREATE UNIQUE LIST OF DISEASES
 
   // cast.forEach((element) => {
@@ -46,7 +37,31 @@ export default function ListResults({ cast, onChoice, list, type }) {
   return (
     <div>
       {/* {uniqueDiseaseList.map((disease) => { */}
-      <table>
+      <table id="masterTable">
+        <td></td>
+        <td></td>
+      </table>
+
+      <table id="symptomsTable">
+        <tr>
+          <tbody>
+            <td>
+              {console.log("here", list)}
+              {list.forEach((element) => console.log(Object.values(element)))}
+              {list.forEach((element) => console.log(element))}
+              {list.forEach((element) => console.log(element.symptom_uid))}
+              {list.forEach((symptoms) => {
+                return <div>{symptoms.symptom_uid}</div>;
+              })}
+              {/* {list.map((symptoms) => {
+                return <div>{symptoms}</div>;
+              })} */}
+            </td>
+          </tbody>
+        </tr>
+      </table>
+
+      <table id="resultsTable">
         <tr>
           <th>Disease Name</th>
           <th>Symptom Name</th>

@@ -112,12 +112,13 @@ function App() {
 
   function pickSymptom(selection, list) {
     console.log("In Pick Symptom selection", selection);
-    console.log("In Pick Symptom selection.symptom_name", selection.symptom_uid);
+    console.log("In Pick Symptom selection.symptom_uid", selection.symptom_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.symptom_uid));
     if (!list.includes(selection.symptom_uid)) {
-      const newList = list.concat(selection.symptom_uid);
+      // const newList = list.concat(selection.symptom_uid);
+      const newList = list.concat(selection);
       setSelectionList(newList);
       console.log("Here is the New List: ", newList);
     }
@@ -127,7 +128,7 @@ function App() {
 
   function pickDisease(selection, list) {
     console.log("In Pick Disease selection", selection);
-    console.log("In Pick Disease selection.disease_name", selection.disease_uid);
+    console.log("In Pick Disease selection.disease_uid", selection.disease_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.disease_uid));
@@ -142,7 +143,7 @@ function App() {
 
   function pickResult(selection, list) {
     console.log("In Pick Disease selection", selection);
-    console.log("In Pick Disease selection.result_name", selection.ds_uid);
+    console.log("In Pick Disease selection.result_uid", selection.ds_uid);
     console.log("Passed in List", list);
 
     console.log(list.includes(selection.ds_uid));

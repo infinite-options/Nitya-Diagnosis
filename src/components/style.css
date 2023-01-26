@@ -1,18 +1,15 @@
 table {
+  border: 5px solid purple;
   width: 550px;
 }
 
 th {
   text-align: left;
-}
-
-table,
-th {
   border: 2px solid blue;
 }
 
 tr {
-  border: 10px solid #000;
+  border: 3px solid #000;
 }
 
 td {

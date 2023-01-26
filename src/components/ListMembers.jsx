@@ -29,7 +29,7 @@ export default function ListMembers({ cast, onChoice, list, type }) {
             key={member.disease_uid}
           >
             {list.length > 0 ? (
-              <p style={{ color: list.some((e) => e === member.disease_uid) ? "red" : "green" }}>
+              <p style={{ color: list.disease_uid.some((e) => e === member.disease_uid) ? "red" : "green" }}>
                 {/* <p style={{ color: "red" }}> */}
                 {member.disease_uid}
                 <br></br>
@@ -55,7 +55,17 @@ export default function ListMembers({ cast, onChoice, list, type }) {
             key={member.symptom_uid}
           >
             {list.length > 0 ? (
-              <p style={{ color: list.some((e) => e === member.symptom_uid) ? "red" : "green" }}>
+              // console.log("Inside symptom clicked ", list.length),
+              // console.log(list),
+              // console.log(list[0].symptom_uid, member.symptom_uid, typeof member.symptom_uid),
+              // list.forEach((element) => console.log(element)),
+              // list.forEach((element) => console.log(Object.values(element).includes("550-000002"))),
+              // list.forEach((element) => console.log(Object.values(element).includes(member.symptom_uid))),
+              // console.log(Object.values(list.symptom_uid).includes("550-000002")),
+              // console.log(Object.values(list.symptom_uid).includes(member.symptom_uid)),
+              // console.log(list, member.symptom_uid),
+              // <p style={{ color: list.symptom_uid.some((e) => e === member.symptom_uid) ? "red" : "green" }}>
+              <p style={{ color: list.forEach((element) => Object.values(element).includes(member.symptom_uid)) ? "red" : "green" }}>
                 {/* <p style={{ color: "red" }}> */}
                 {member.symptom_uid}
                 <br></br>
@@ -81,18 +91,21 @@ export default function ListMembers({ cast, onChoice, list, type }) {
             key={member.ds_uid}
           >
             {list.length > 0 ? (
-              <p style={{ color: list.some((e) => e === member.ds_uid) ? "red" : "green" }}>
-                {/* <p style={{ color: "red" }}> */}
-                {member.ds_uid}
-                <br></br>
-                {member.disease_uid}
-                <br></br>
-                {member.disease_name}
-                <br></br>
-                {member.symptom_uid}
-                <br></br>
-                {member.symptom_name}
-              </p>
+              (console.log("Inside result clicked ", list.length),
+              (
+                <p style={{ color: list.some((e) => e === member.ds_uid) ? "red" : "green" }}>
+                  {/* <p style={{ color: "red" }}> */}
+                  {member.ds_uid}
+                  <br></br>
+                  {member.disease_uid}
+                  <br></br>
+                  {member.disease_name}
+                  <br></br>
+                  {member.symptom_uid}
+                  <br></br>
+                  {member.symptom_name}
+                </p>
+              ))
             ) : (
               <p style={{ color: "blue" }}>
                 {member.ds_uid}
