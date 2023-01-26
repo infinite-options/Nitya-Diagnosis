@@ -221,7 +221,7 @@ function App() {
                   findAllDiseases(selectionList);
                   setSymptomClicked(false);
                   setDiseaseClicked(false);
-                  setSelectionList([]);
+                  // setSelectionList([]);
                 }}
               >
                 See New Results From New Query
