@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./style.css";
 
 export default function ListResults({ cast, onChoice, list, type }) {
   console.log("In List Results ----------------------------");
@@ -11,6 +12,7 @@ export default function ListResults({ cast, onChoice, list, type }) {
   //   console.log("create Unique List: ", createUniqueList);
 
   const [diseaseList, setDiseaseList] = useState([]);
+  const [selectedSymptom, setSelectedSymptom] = useState("");
   let newList = [];
   let uniqueDiseaseList = [];
   let uniqueSymptomList = [];
@@ -26,51 +28,62 @@ export default function ListResults({ cast, onChoice, list, type }) {
 
   // CREATE UNIQUE LIST OF DISEASES
 
-  cast.forEach((element) => {
-    // console.log("Print element: ", element.disease_uid);
-    if (!uniqueDiseaseList.includes(element.disease_uid)) {
-      //   uniqueDiseaseList = newList.concat(element.disease_uid);
-      uniqueDiseaseList = uniqueDiseaseList.concat(element.disease_uid);
-      //   console.log("Unique List: ", uniqueDiseaseList);
-    }
-  });
-  console.log("Unique List outside of Loop: ", uniqueDiseaseList);
+  // cast.forEach((element) => {
+  //   // console.log("Print element: ", element.disease_uid);
+  //   // console.log("Unique List Before: ", uniqueDiseaseList);
+  //   if (!uniqueDiseaseList.includes(element.disease_uid)) {
+  //     //   uniqueDiseaseList = newList.concat(element.disease_uid);
+  //     uniqueDiseaseList = uniqueDiseaseList.concat(element.disease_uid);
+  //     // uniqueDiseaseList = uniqueDiseaseList.concat(element);
+
+  //     // console.log("Unique List After: ", uniqueDiseaseList);
+  //   }
+  // });
+  // console.log("Unique List outside of Loop: ", uniqueDiseaseList);
 
   // FOR EACH UNIQUE LIST PRINT OUT THE SYMPTOMS
 
-  //   uniqueDiseaseList.forEach((disease) => {
-  //     console.log("Print disease: ", disease);
-  //     newList = [];
-  //     cast.forEach((element) => {
-  //       console.log("Print element: ", element.disease_uid);
-  //       if (disease === element.disease_uid) {
-  //         //   uniqueDiseaseList = newList.concat(element.disease_uid);
-  //         newList = newList.concat(element);
-  //         //   console.log("Unique List: ", uniqueDiseaseList);
-  //       }
-
-  //       console.log("Symptoms for Disease: ", disease, newList);
-  //     });
-  //   });
-
   return (
     <div>
-      {uniqueDiseaseList.map((disease) => {
-        return (
-          <table>
-            <tbody>
+      {/* {uniqueDiseaseList.map((disease) => { */}
+      <table>
+        <tr>
+          <th>Disease Name</th>
+          <th>Symptom Name</th>
+        </tr>
+        <tbody>
+          {cast.map((element) => {
+            return (
               <tr>
-                <td>{disease}</td>
                 <td>
-                  {cast.map((element) => {
-                    return disease === element.disease_uid ? <div>{element.ds_symptom_uid}</div> : "";
+                  {element.disease_uid} <br></br> hello<br></br> {element.disease_name} {console.log("hello")}
+                </td>
+                {/* <td>{element.sym_uid_name}</td> */}
+                <td>
+                  {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)}
+                  {JSON.parse(element.sym_uid_name).map((sym) => {
+                    return (
+                      <tr>
+                        {console.log("inside sym: ", sym)}
+                        <td>{sym.s_uid}</td>
+                        <br></br>
+                        <td
+                          style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
+                          onClick={() => {
+                            setSelectedSymptom(sym.s_name);
+                          }}
+                        >
+                          {sym.s_name}
+                        </td>
+                      </tr>
+                    );
                   })}
                 </td>
               </tr>
-            </tbody>
-          </table>
-        );
-      })}
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

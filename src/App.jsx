@@ -28,19 +28,15 @@ function App() {
   // FUNCTIONS -------------------------------------
 
   // USE EFFECT TO CALL VARIABLES.  IS IT CORRECT PRACTICE TO INITIALIZE THE VARIABLES?  WHY ASYNC?
-  function testJSON() {
+  function findAllDiseases(symptom_uid) {
+    console.log("in findAllDiseases - selectionList:", symptom_uid);
     // const response = await fetch("cast.json");
-    axios
-      .post("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/symptoms", {
-        disease_uid: "500-000001",
-        disease_name: "Vataja ",
-        disease_description: "",
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        setSymptomList(data.result);
-        console.log("in fetchSymptoms ", symptomList);
-      });
+    axios.post("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/dsfroms", { symptom_uid }).then((response) => {
+      console.log("All Diseases with Symptoms: ", response.data.result);
+      setSymptomList(response.data.result);
+      setResultsList(response.data.result);
+      console.log("in findAllDiseases ", resultsList);
+    });
   }
 
   function fetchSymptoms() {
@@ -63,6 +59,25 @@ function App() {
       });
   }
 
+  // function findAllDiseases(selectionList) {
+  //   console.log("Input Symptoms: ", selectionList);
+  //   let diseaseResultList = [];
+  //   // const response = await fetch("cast.json");
+  //   selectionList.forEach((element) => {
+  //     console.log("Print element: ", element);
+  //     fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/ds")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log("All Diseases with Symptoms: ", data.result);
+  //         setDiseaseList(data.result);
+  //         diseaseResultList = diseaseResultList.concat(data.result);
+  //         console.log("in findAllDiseases: ", diseaseResultList);
+  //         setResultsList(diseaseResultList);
+  //         console.log("After findAllDiseases: ", resultsList);
+  //       });
+  //   });
+  // }
+
   function findDiseases(selectionList) {
     console.log("Input Symptoms: ", selectionList);
     let diseaseResultList = [];
@@ -75,7 +90,7 @@ function App() {
           console.log("Data Result: ", data.result);
           setDiseaseList(data.result);
           diseaseResultList = diseaseResultList.concat(data.result);
-          console.log("in fetchDiseases: ", diseaseResultList);
+          console.log("in findDiseases: ", diseaseResultList);
           setResultsList(diseaseResultList);
           console.log("After findDiseases: ", resultsList);
         });
@@ -193,6 +208,23 @@ function App() {
                 }}
               >
                 See Results
+              </button>
+            </td>
+          </tr>
+          <tr align="center" border="1" bgcolor="green">
+            <td colSpan="2">
+              {/* These seem to be equivalent */}
+              {/* <button onClick={testFunctionCall}>See Symptoms1</button> */}
+              {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
+              <button
+                onClick={() => {
+                  findAllDiseases(selectionList);
+                  setSymptomClicked(false);
+                  setDiseaseClicked(false);
+                  setSelectionList([]);
+                }}
+              >
+                See New Results From New Query
               </button>
             </td>
           </tr>
