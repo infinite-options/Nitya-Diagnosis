@@ -46,51 +46,50 @@ export default function ListResults({ cast, onChoice, list, type }) {
 
   return (
     <div>
-      {/* {uniqueDiseaseList.map((disease) => { */}
+      <table>
+        <tr>Selected Symptoms</tr>
+        <tr>
+          <ListSymptoms symptoms={list} />
+        </tr>
+        {/* <tr>{resultsList}</tr> */}
+      </table>
+
       <table>
         <tr>
           <th>Disease Name</th>
           <th>Symptom Name</th>
         </tr>
-        <tbody>
-          {cast.map((element) => {
-            return (
-              <div>
-                <tr>
-                  <ListSymptoms symptoms={list} />
-                </tr>
-                <tr>
-                  <td>
-                    {element.disease_uid} <br></br> hello<br></br> {element.disease_name} {console.log("hello")}
-                  </td>
-                  {/* <td>{element.sym_uid_name}</td> */}
-                  <td>
-                    {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)}
-                    {JSON.parse(element.sym_uid_name).map((sym) => {
-                      return (
-                        <tr>
-                          {console.log("inside sym: ", sym)}
-                          <td>{sym.s_uid}</td>
-                          {console.log("Currently in List: ", list)}
-                          <td
-                            // style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
-                            style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
-                            // style={{ backgroundColor: list.includes(sym.s_name) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
-                            onClick={() => {
-                              setSelectedSymptom(sym.s_name);
-                            }}
-                          >
-                            {sym.s_name}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </td>
-                </tr>
-              </div>
-            );
-          })}
-        </tbody>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        {cast.map((element) => {
+          return (
+            <tr>
+              <td>
+                {element.disease_uid} <br></br> hello<br></br> {element.disease_name}
+              </td>
+              <td>
+                {/* {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)} */}
+                {JSON.parse(element.sym_uid_name).map((sym) => {
+                  return (
+                    <tr>
+                      <td>{sym.s_uid}</td>
+                      <td
+                        style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
+                        onClick={() => {
+                          setSelectedSymptom(sym.s_name);
+                        }}
+                      >
+                        {sym.s_name}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </td>
+            </tr>
+          );
+        })}
       </table>
     </div>
   );

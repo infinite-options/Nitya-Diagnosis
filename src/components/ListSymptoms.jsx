@@ -43,13 +43,20 @@ export default function ListSymptoms({ symptoms }) {
   //   console.log("Fetch Symptom Response Result: ", resultsList);
 
   return (
-    <div>
-      <div>Hello Symptoms</div>
-      <div>hmmm</div>
-      {console.log("Do we make it here? --------------+++++++++++++++++++")}
+    <table>
+      <tr>
+        <th>Symptom UID</th>
+
+        <th>Symptom Name</th>
+      </tr>
       {resultsList.map((element) => {
-        return <div>{element.symptom_uid}</div>;
+        return (
+          <tr>
+            <td>{element.symptom_uid}</td>
+            <td>{element.symptom_name}</td>
+          </tr>
+        );
       })}
-    </div>
+    </table>
   );
 }
