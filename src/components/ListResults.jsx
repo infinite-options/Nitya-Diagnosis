@@ -68,7 +68,8 @@ export default function ListResults({ cast, onChoice, list, type }) {
                         <td>{sym.s_uid}</td>
                         <br></br>
                         <td
-                          style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
+                          // style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
+                          style={{ backgroundColor: sym.s_name === "alasya" ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
                           onClick={() => {
                             setSelectedSymptom(sym.s_name);
                           }}
