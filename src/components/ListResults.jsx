@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ListSymptoms from "./ListSymptoms";
 import "./style.css";
 
 export default function ListResults({ cast, onChoice, list, type }) {
@@ -54,35 +55,39 @@ export default function ListResults({ cast, onChoice, list, type }) {
         <tbody>
           {cast.map((element) => {
             return (
-              <tr>
-                <td>
-                  {element.disease_uid} <br></br> hello<br></br> {element.disease_name} {console.log("hello")}
-                </td>
-                {/* <td>{element.sym_uid_name}</td> */}
-                <td>
-                  {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)}
-                  {JSON.parse(element.sym_uid_name).map((sym) => {
-                    return (
-                      <tr>
-                        {console.log("inside sym: ", sym)}
-                        <td>{sym.s_uid}</td>
-                        <br></br>
-                        {console.log("Currently in List: ", list)}
-                        <td
-                          // style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
-                          style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
-                          // style={{ backgroundColor: list.includes(sym.s_name) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
-                          onClick={() => {
-                            setSelectedSymptom(sym.s_name);
-                          }}
-                        >
-                          {sym.s_name}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </td>
-              </tr>
+              <div>
+                <tr>
+                  <ListSymptoms symptoms={list} />
+                </tr>
+                <tr>
+                  <td>
+                    {element.disease_uid} <br></br> hello<br></br> {element.disease_name} {console.log("hello")}
+                  </td>
+                  {/* <td>{element.sym_uid_name}</td> */}
+                  <td>
+                    {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)}
+                    {JSON.parse(element.sym_uid_name).map((sym) => {
+                      return (
+                        <tr>
+                          {console.log("inside sym: ", sym)}
+                          <td>{sym.s_uid}</td>
+                          {console.log("Currently in List: ", list)}
+                          <td
+                            // style={{ backgroundColor: sym.s_name === "alasya" ? "red" : "pink" }}
+                            style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
+                            // style={{ backgroundColor: list.includes(sym.s_name) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
+                            onClick={() => {
+                              setSelectedSymptom(sym.s_name);
+                            }}
+                          >
+                            {sym.s_name}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </td>
+                </tr>
+              </div>
             );
           })}
         </tbody>

@@ -286,7 +286,7 @@ function App() {
             list={selectionList}
             type="results"
           />
-          <ListMembers
+          {/* <ListMembers
             cast={resultsList}
             onChoice={(selection) => {
               console.log("These are the Results chosen: ", selection);
@@ -294,7 +294,7 @@ function App() {
             }}
             list={selectionList}
             type="results"
-          />
+          /> */}
         </div>
       )}
       {/* Confirm that what was selected can be accessed */}
