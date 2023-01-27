@@ -14,9 +14,6 @@ export default function ListResults({ cast, onChoice, list, type }) {
 
   const [diseaseList, setDiseaseList] = useState([]);
   const [selectedSymptom, setSelectedSymptom] = useState("");
-  let newList = [];
-  let uniqueDiseaseList = [];
-  let uniqueSymptomList = [];
 
   function fetchDiseases() {
     fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
@@ -70,7 +67,7 @@ export default function ListResults({ cast, onChoice, list, type }) {
           </tr>
           {cast.map((element) => {
             return (
-              <tr>
+              <tr key={element.disease_uid}>
                 <td>
                   {element.disease_uid} <br></br> hello<br></br> {element.disease_name}
                 </td>
@@ -78,17 +75,18 @@ export default function ListResults({ cast, onChoice, list, type }) {
                   {/* {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)} */}
                   {JSON.parse(element.sym_uid_name).map((sym) => {
                     return (
-                      <tr>
-                        <td>{sym.s_uid}</td>
-                        <td
+                      <p key={sym.s_uid}>
+                        {sym.s_uid}
+
+                        <li
                           style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
                           onClick={() => {
                             setSelectedSymptom(sym.s_name);
                           }}
                         >
                           {sym.s_name}
-                        </td>
-                      </tr>
+                        </li>
+                      </p>
                     );
                   })}
                 </td>

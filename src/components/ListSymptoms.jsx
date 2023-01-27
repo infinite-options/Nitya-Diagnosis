@@ -36,7 +36,7 @@ export default function ListSymptoms({ symptoms }) {
   // THIS WILL AUTOMATICALLY LOAD THE DATA WHEN THE PROGRAM STARTS
   useEffect(() => {
     fetchSymptoms(symptoms);
-  }, []);
+  }, [symptoms]);
 
   //   console.log("Fetch Symptom Response: ", fetchSymptoms(symptoms));
   //   console.log("Fetch Symptom Response Symptom: ", symptomList);
@@ -46,10 +46,10 @@ export default function ListSymptoms({ symptoms }) {
 
   return resultsList.map((element) => {
     return (
-      <div>
+      <td key={element.symptom_uid}>
         <h2>{element.symptom_uid}</h2>
         <h2>{element.symptom_name}</h2>
-      </div>
+      </td>
     );
   });
 
