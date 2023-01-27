@@ -194,11 +194,8 @@ function App() {
               </button>
             </td>
           </tr>
-          <tr align="center" border="1" bgcolor="green">
+          {/* <tr align="center" border="1" bgcolor="green">
             <td colSpan="2">
-              {/* These seem to be equivalent */}
-              {/* <button onClick={testFunctionCall}>See Symptoms1</button> */}
-              {/* <button onClick={() => {testFunctionCall();}}> See Symptoms1 </button> */}
               <button
                 onClick={() => {
                   findDiseases(selectionList);
@@ -210,7 +207,7 @@ function App() {
                 See Results
               </button>
             </td>
-          </tr>
+          </tr> */}
           <tr align="center" border="1" bgcolor="green">
             <td colSpan="2">
               {/* These seem to be equivalent */}
@@ -228,7 +225,7 @@ function App() {
               </button>
             </td>
           </tr>
-          <tr align="center" border="1" bgcolor="green">
+          {/* <tr align="center" border="1" bgcolor="green">
             <td colSpan="2">
               <button
                 onClick={() => {
@@ -242,7 +239,7 @@ function App() {
                 Test JSON
               </button>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
 
