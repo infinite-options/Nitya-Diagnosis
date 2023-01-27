@@ -42,21 +42,32 @@ export default function ListSymptoms({ symptoms }) {
   //   console.log("Fetch Symptom Response Symptom: ", symptomList);
   //   console.log("Fetch Symptom Response Result: ", resultsList);
 
-  return (
-    <table>
-      <tr>
-        <th>Symptom UID</th>
+  //   return resultsList.map;
 
-        <th>Symptom Name</th>
-      </tr>
-      {resultsList.map((element) => {
-        return (
-          <tr>
-            <td>{element.symptom_uid}</td>
-            <td>{element.symptom_name}</td>
-          </tr>
-        );
-      })}
-    </table>
-  );
+  return resultsList.map((element) => {
+    return (
+      <div>
+        <h2>{element.symptom_uid}</h2>
+        <h2>{element.symptom_name}</h2>
+      </div>
+    );
+  });
+
+  //   return (
+  //     <table>
+  //       <tr>
+  //         <th>Symptom UID</th>
+
+  //         <th>Symptom Name</th>
+  //       </tr>
+  //       {resultsList.map((element) => {
+  //         return (
+  //           <tr>
+  //             <td>{element.symptom_uid}</td>
+  //             <td>{element.symptom_name}</td>
+  //           </tr>
+  //         );
+  //       })}
+  //     </table>
+  //   );
 }
