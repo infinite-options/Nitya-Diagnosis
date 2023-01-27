@@ -8,36 +8,16 @@ export default function ListResults({ cast, onChoice, list, type }) {
   console.log("Selected Members: ", list);
   console.log("Disease or Symptom: ", type);
 
-  //   let [uniqueDiseaseList, setUniqueDiseaseList] = useState([]);
-  //   let createUniqueList = [];
-  //   console.log("create Unique List: ", createUniqueList);
-
-  const [diseaseList, setDiseaseList] = useState([]);
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
-  function fetchDiseases() {
-    fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
-      .then((response) => response.json())
-      .then((data) => {
-        setDiseaseList(data.result);
-        console.log("in fetchDiseases: ", diseaseList);
-      });
-  }
-
-  // CREATE UNIQUE LIST OF DISEASES
-
-  // cast.forEach((element) => {
-  //   // console.log("Print element: ", element.disease_uid);
-  //   // console.log("Unique List Before: ", uniqueDiseaseList);
-  //   if (!uniqueDiseaseList.includes(element.disease_uid)) {
-  //     //   uniqueDiseaseList = newList.concat(element.disease_uid);
-  //     uniqueDiseaseList = uniqueDiseaseList.concat(element.disease_uid);
-  //     // uniqueDiseaseList = uniqueDiseaseList.concat(element);
-
-  //     // console.log("Unique List After: ", uniqueDiseaseList);
-  //   }
-  // });
-  // console.log("Unique List outside of Loop: ", uniqueDiseaseList);
+  // function fetchDiseases() {
+  //   fetch("https://mfrbehiqnb.execute-api.us-west-1.amazonaws.com/dev/api/v2/diseases")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setDiseaseList(data.result);
+  //       console.log("in fetchDiseases: ", diseaseList);
+  //     });
+  // }
 
   // FOR EACH UNIQUE LIST PRINT OUT THE SYMPTOMS
 
@@ -48,9 +28,9 @@ export default function ListResults({ cast, onChoice, list, type }) {
           <tr>
             <th>Selected Symptoms</th>
           </tr>
-          <tr>
-            <ListSymptoms symptoms={list} />
-          </tr>
+
+          <ListSymptoms symptoms={list} />
+
           {/* <tr>{resultsList}</tr> */}
         </tbody>
       </table>
@@ -61,35 +41,27 @@ export default function ListResults({ cast, onChoice, list, type }) {
             <th>Disease Name</th>
             <th>Symptom Name</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-          </tr>
           {cast.map((element) => {
             return (
               <tr key={element.disease_uid}>
                 <td>
-                  {element.disease_uid} <br></br> hello<br></br> {element.disease_name}
+                  {element.disease_uid} <br></br> {element.disease_name}
                 </td>
-                <td>
-                  {/* {console.log("IN Array: ", element.sym_uid_name, typeof element.sym_uid_name)} */}
-                  {JSON.parse(element.sym_uid_name).map((sym) => {
-                    return (
-                      <p key={sym.s_uid}>
-                        {sym.s_uid}
-
-                        <li
-                          style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
-                          onClick={() => {
-                            setSelectedSymptom(sym.s_name);
-                          }}
-                        >
-                          {sym.s_name}
-                        </li>
-                      </p>
-                    );
-                  })}
-                </td>
+                {JSON.parse(element.sym_uid_name).map((sym) => {
+                  return (
+                    <tr key={sym.s_uid}>
+                      <td>{sym.s_uid}</td>
+                      <td
+                        style={{ backgroundColor: list.includes(sym.s_uid) ? "red" : sym.s_name === selectedSymptom ? "maroon" : "pink" }}
+                        onClick={() => {
+                          setSelectedSymptom(sym.s_name);
+                        }}
+                      >
+                        {sym.s_name}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tr>
             );
           })}

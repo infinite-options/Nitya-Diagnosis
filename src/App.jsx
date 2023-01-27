@@ -286,15 +286,6 @@ function App() {
             list={selectionList}
             type="results"
           />
-          {/* <ListMembers
-            cast={resultsList}
-            onChoice={(selection) => {
-              console.log("These are the Results chosen: ", selection);
-              setSelection(selection);
-            }}
-            list={selectionList}
-            type="results"
-          /> */}
         </div>
       )}
       {/* Confirm that what was selected can be accessed */}
@@ -310,6 +301,7 @@ function App() {
       {console.log("Updated List: ", selectionList)}
       {selection && !diseaseClicked && !symptomClicked && pickResult(selection, selectionList)}
       {console.log("Updated List: ", selectionList)}
+
       <img src="NityaFB@2x.png" className="Nitya-logo" alt="logo" />
       <br></br>
       <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">

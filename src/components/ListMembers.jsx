@@ -70,44 +70,6 @@ export default function ListMembers({ cast, onChoice, list, type }) {
             )}
           </div>
         ))}
-
-      {type === "results" &&
-        cast.map((member) => (
-          <div
-            style={{ color: "red" }}
-            onClick={() => {
-              onChoice(member);
-            }}
-            key={member.ds_uid}
-          >
-            {list.length > 0 ? (
-              <p style={{ color: list.some((e) => e === member.ds_uid) ? "red" : "green" }}>
-                {/* <p style={{ color: "red" }}> */}
-                {member.ds_uid}
-                <br></br>
-                {member.disease_uid}
-                <br></br>
-                {member.disease_name}
-                <br></br>
-                {member.symptom_uid}
-                <br></br>
-                {member.symptom_name}
-              </p>
-            ) : (
-              <p style={{ color: "blue" }}>
-                {member.ds_uid}
-                <br></br>
-                {member.disease_uid}
-                <br></br>
-                {member.disease_name}
-                <br></br>
-                {member.symptom_uid}
-                <br></br>
-                {member.symptom_name}
-              </p>
-            )}
-          </div>
-        ))}
     </div>
   );
 }
